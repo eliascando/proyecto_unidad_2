@@ -1,9 +1,6 @@
-//Este es el pinchi programa del primer parcial
-/*Esta belleza hace todo lo que tu quieras...
-OKNO :v ;
-Este programa está diseñado para ingresar datos de un determinado docente y
+/*Este programa estÃ¡ diseÃ±ado para ingresar datos de un determinado docente y
 calcula el valor a  y realiza los respectivos descuentos y tambien el pago extras si
-amerita la situación.
+amerita la situaciÃ³n.
 */
 #include <stdio.h>//printf y scanf
 #include <conio.h>//para gets y getch
@@ -28,13 +25,13 @@ int main(void){
 		printf("\n 2. Pago por Contrato");
 		printf("\n 3. Pago por Nombramiento");
 		printf("\n 4. Salir");
-		printf("\n Opción: ");
+		printf("\n OpciÃ³n: ");
 		scanf ("%d",&select);
 		fflush(stdin);
 		system("cls");
 		
 		switch(select){
-			//Primer Menú: Docente Contratado
+			//Primer MenÃº: Docente Contratado
 			case 1:	
 			/*system("cls");
 			printf("\n **Ingreso de Datos**");
@@ -54,23 +51,23 @@ int main(void){
 				printf("\n Ingreso Invalido...");
 			}
 			}while (!isalpha(lname));
-			printf("\n Cédula: ");
+			printf("\n CÃ©dula: ");
 			scanf ("%s",&id);
 			fflush(stdin);
-			printf("\n Dirección: ");
+			printf("\n DirecciÃ³n: ");
 			gets(address);
 			//scanf ("%[^\n]",address);
 			printf("\n Correo: ");
 			scanf ("%s",&email);
-			printf("\n Número de Teléfono: ");
+			printf("\n NÃºmero de TelÃ©fono: ");
 			scanf ("%s",&phone);
 			printf("\n");
 			system("pause");*/
 			goto mod;
-			//Segundo Menú
+			//Segundo MenÃº
 			case 2:
 				system("cls");
-				printf("\n **Cálculo de valor a pagar** ");
+				printf("\n **CÃ¡lculo de valor a pagar** ");
 				do{
 					printf("\n Ingrese horas trabajadas: ");
 					scanf ("%d",&horas);
@@ -92,7 +89,7 @@ int main(void){
 					}	
 				total = sub_total - dscto;	
 				}else if(horas < 0){
-						printf("Ingreso Inválido!...");
+						printf("Ingreso InvÃ¡lido!...");
 				}
 				
 				
@@ -103,11 +100,11 @@ int main(void){
 				
 				printf("\n Apellidos: %s", lname);
 				
-				printf("\n Cédula: %s", id);
+				printf("\n CÃ©dula: %s", id);
 				
-				printf("\n Dirección: %s", address);
+				printf("\n DirecciÃ³n: %s", address);
 				printf("\n Correo: %s", email);
-				printf("\n Teléfono: %s", phone);
+				printf("\n TelÃ©fono: %s", phone);
 				printf("\n");
 				printf("\n Horas trabajadas:************* %d", horas);
 				printf("\n Sub Total: *******************$%.2f", sub_total);
@@ -122,7 +119,7 @@ int main(void){
 			case 3:
 				fflush(stdin);
 				system("cls");
-				printf("\n **Cálculo de valor a pagar** ");
+				printf("\n **CÃ¡lculo de valor a pagar** ");
 				do{
 					printf("\n Ingrese horas trabajadas: ");
 					scanf ("%d",&horas);
@@ -149,10 +146,10 @@ int main(void){
 				printf("\n **Docente Nombramiento** ");
 				printf("\n Nombres: %s", name);
 				printf("\n Apellidos: %s", lname);
-				printf("\n Cédula: %s", id);
-				printf("\n Dirección: %s", address);
+				printf("\n CÃ©dula: %s", id);
+				printf("\n DirecciÃ³n: %s", address);
 				printf("\n Correo: %s", email);
-				printf("\n Teléfono: %s", phone);
+				printf("\n TelÃ©fono: %s", phone);
 				printf("\n");
 				printf("\n Horas trabajadas:************** %d", horas);
 				printf("\n Sub Total:******************** $%.2f", sub_total);
