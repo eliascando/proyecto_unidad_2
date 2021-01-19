@@ -98,7 +98,10 @@ int main(void){
 					printf("\n Ingrese horas trabajadas: ");
 					scanf ("%d",&horas);//recoge datos para guardar en la variable horas
 					fflush(stdin);
-				}while(horas<0);
+					if(horas<=0){//Validacion para que las horas sean mayores a 0
+						printf("\n Ingreso Inválido!");
+					}
+				}while(horas<=0);//condicion para validar que las horas sean solo positivas
 				
 				if(horas>=0){//sentencia para ejecutar procesos de calculo de pago si el numero ingresado es positivo
 					if (horas > 160){//condicional para efectuar el calcula de tarifa de pago extra si las horas superan las 160
@@ -138,13 +141,14 @@ int main(void){
 				goto mod;
 			//Tercer Menu: Docente de Nombramiento	
 			case 3:
-				printf("\n **Cálculo de valor a pagar** ");
-				add=0; pago_adicional=0; adicional=0;//Se declaran las variables en 0, de tipo float para descuento
 				do{
 					printf("\n Ingrese horas trabajadas: ");
 					scanf ("%d",&horas);//recoge datos para guardar en la variable horas
 					fflush(stdin);
-				}while(horas<0);//condicion para validar que las horas sean solo positivas
+					if(horas<=0){//Validacion para que las horas sean mayores a 0
+						printf("\n Ingreso Inválido!");
+					}
+				}while(horas<=0);//condicion para validar que las horas sean solo positivas
 				
 				if(horas>=0){//sentencia para ejecutar procesos de calculo de pago si el numero ingresado es positivo
 					if (horas > 160){//condicional para efectuar el calcula de tarifa de pago extra si las horas superan las 160
