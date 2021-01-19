@@ -59,6 +59,7 @@ int main(void){
 					gets(name);//funcion que recoge datos y la guarda en una variable, en este caso variable name
 				    if (!validacion_letras(name)) {//sentencia para validar que el ingreso haya sido tipo cadena de letras unicamente
 				        printf("\n Ingreso Inválido!");
+				        printf("\n Solo Letras...");
 				        printf("\n");
 				    }
 				}while(!validacion_letras(name));//condicional de bucle de repeticion
@@ -68,6 +69,7 @@ int main(void){
 					gets(lname);//recoge los datos para guardar en lname
 				    if (!validacion_letras(lname)) {//sentencia para validar que el ingreso en la variable haya sido cadena de letras
 				        printf("\n Ingreso Inválido!");//aviso de alerta
+				        printf("\n Solo Letras...");
 				    printf("\n");
 				    }
 				}while(!validacion_letras(lname));//condicional de bucle de repeticion
@@ -76,9 +78,14 @@ int main(void){
 					gets(id);//recoge los datos para guardar en id
 					if(strlen(id)>10){//sentencia para validar el largo de una cadena
 						printf("\n Ingreso Inválido!");
+						printf("\n Deben ser 10 dígitos...");
+						printf("\n");
+					}else if(strlen(id)<10){
+						printf("\n Ingreso Inválido!");
+						printf("\n Deben ser 10 dígitos...");
 						printf("\n");
 					}
-				} while (strlen(id)>10); //mientras la cadena cedula mida mas de 10 espacios, se repite
+				} while (strlen(id)>10 || strlen(id)<10); //mientras la cadena cedula mida mas de 10 espacios, se repite
 				fflush(stdin);//limpieza de buffer
 				printf("\n Dirección: ");
 				gets(address);//guarda datos en variable address
@@ -101,17 +108,16 @@ int main(void){
 					if(horas<=0){//Validacion para que las horas sean mayores a 0
 						printf("\n Ingreso Inválido!");
 					}
-				}while(horas<=0);//condicion para validar que las horas sean solo positivas
+				}while(horas<=0);
 				
 				if(horas>=0){//sentencia para ejecutar procesos de calculo de pago si el numero ingresado es positivo
 					if (horas > 160){//condicional para efectuar el calcula de tarifa de pago extra si las horas superan las 160
 						fflush(stdin);
 						add = (PPHDC * 0.13) + PPHDC;//Realiza el calculo para tarifa horas extras
-						pago_adicional = horas - 160;
-						adicional = pago_adicional * add;//establece el pago adicional
 						sub_total = horas * add;
 						dscto = (sub_total * 11.45) / 100;//calcula las horas por el pago adicional
 					}else if(horas <= 160){//condicion que se ejecuta si las horas son menores a 160
+						add = PPHDC;
 						sub_total = horas * PPHDC;	
 						dscto = (sub_total * 11.45) / 100;		
 					}	
@@ -131,6 +137,11 @@ int main(void){
 				printf("\n Teléfono: %s", phone);
 				printf("\n");
 				printf("\n Horas trabajadas:************* %d", horas);
+				if(add>PPHDC){
+				printf("\n Tarifa Por Horas Extras:******$%.2f", add);
+				}else{
+				printf("\n Tarifa Por Horas:**************$%.2f", add);
+				}
 				printf("\n Sub Total: *******************$%.2f", sub_total);
 				printf("\n Descuento Seguro (11.45%):*** -$%.2f", dscto);
 				printf("\n");
@@ -141,6 +152,8 @@ int main(void){
 				goto mod;
 			//Tercer Menu: Docente de Nombramiento	
 			case 3:
+				printf("\n **Cálculo de valor a pagar** ");
+				add=0; pago_adicional=0; adicional=0;//Se declaran las variables en 0, de tipo float para descuento
 				do{
 					printf("\n Ingrese horas trabajadas: ");
 					scanf ("%d",&horas);//recoge datos para guardar en la variable horas
@@ -154,11 +167,10 @@ int main(void){
 					if (horas > 160){//condicional para efectuar el calcula de tarifa de pago extra si las horas superan las 160
 						fflush(stdin);//limpia buffer
 						add = (PPHDN * 0.15) + PPHDN;//Realiza el calculo para tarifa horas extras
-						pago_adicional = horas - 160;
-						adicional = pago_adicional * add;//establece el pago adicional
 						sub_total = horas * add;//calcula las horas por el pago adicional
 						dscto = (sub_total * 10.15) / 100;//calcula el descuento
 					}else if(horas <= 160){//condicion que se ejecuta si las horas son menores a 160
+						add = PPHDN;
 						sub_total = horas * PPHDN;
 						dscto = (sub_total * 10.15) / 100;		
 					}	
@@ -178,6 +190,12 @@ int main(void){
 				printf("\n Teléfono: %s", phone);
 				printf("\n");
 				printf("\n Horas trabajadas:************** %d", horas);
+				if(add>PPHDN){
+				printf("\n Tarifa Por Horas Extras:******$%.2f", add);
+				}else{
+				printf("\n Tarifa Por Horas:**************$%.2f", add);
+				}
+				printf("\n Tarifa Por Horas:**************$%.2f", add);
 				printf("\n Sub Total:******************** $%.2f", sub_total);
 				printf("\n Descuento Seguro (10.15%):**** -$%.2f", dscto);
 				printf("\n");
