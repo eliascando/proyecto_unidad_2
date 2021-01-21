@@ -33,8 +33,8 @@ int validacion_letras(char cadena[]) {
 int main(void){
 	system("color 8f");//funcion para definir color de la consola
 	setlocale(LC_ALL,"spanish");//Declaro funcion de idioma español
-	int select, case1, exit, horas=0; // Se declaran los enteros
-	float sub_total, total, dscto, add, pago_adicional, adicional=0; //Se declaran los reales
+	int select, case1, exit, horas, horas_extra, horas_falta=0; // Se declaran los enteros
+	float sub_total, total, dscto, add, pago_extra, pago_corriente, adicional=0; //Se declaran los reales
 	char name[50], lname[50], id[10], address[50], email[50], phone[50]; //Se declaran las cadenas
 	
 		//Menu Principal: Lista de Opciones
@@ -100,7 +100,7 @@ int main(void){
 			//Segundo Menú: Docente Contratado
 			case 2:
 				printf("\n **Cálculo de valor a pagar** ");
-				add=0; pago_adicional=0; adicional=0;//Se declaran las variables en 0, de tipo float para descuento
+				add=0; pago_extra=0; horas_extra=0;//Se declaran las variables en 0, de tipo float para descuento
 				do{
 					printf("\n Ingrese horas trabajadas: ");
 					scanf ("%d",&horas);//recoge datos para guardar en la variable horas
@@ -110,25 +110,28 @@ int main(void){
 					}
 				}while(horas<=0);
 				
-				if(horas>=0){//sentencia para ejecutar procesos de calculo de pago si el numero ingresado es positivo
-					if (horas > 160){//condicional para efectuar el calcula de tarifa de pago extra si las horas superan las 160
-						fflush(stdin);
-						add = (PPHDC * 0.13) + PPHDC;//Realiza el calculo para tarifa horas extras
-						sub_total = horas * add;
-						dscto = (sub_total * 11.45) / 100;//calcula las horas por el pago adicional
-					}else if(horas <= 160){//condicion que se ejecuta si las horas son menores a 160
-						add = PPHDC;
-						sub_total = horas * PPHDC;	
-						dscto = (sub_total * 11.45) / 100;		
-					}	
-				total = sub_total - dscto;//efectua el total a pagar
-				}else if(horas < 0){
-						printf("Ingreso Inválido!...");//alerta de ingreso no permitido
-				}
+				if (horas > 160){//condicional para efectuar el calcula de tarifa de pago extra si las horas superan las 160
+					fflush(stdin);
+					horas_extra = horas - 160;
+					add = (PPHDC * 0.13) + PPHDC;//Realiza el calculo para tarifa horas extras
+					pago_extra = horas_extra * add;
+					pago_corriente = horas * PPHDC;
+					sub_total = pago_corriente + pago_extra;
+					dscto = (sub_total * 11.45) / 100;//calcula las horas por el pago adicional
+					total = sub_total - dscto;//efectua el total a pagar
+				}else if(horas <= 160){//condicion que se ejecuta si las horas son menores a 160
+					if(horas<160){
+						horas_falta = 160 - horas;
+					}
+					sub_total = horas * PPHDC;	
+					dscto = (sub_total * 11.45) / 100;	
+					total = sub_total - dscto;//efectua el total a pagar	
+				}	
+				
 				//Muestra los datos ingresados					
 				system("pause");
 				system("cls");
-				printf("\n **Docente Contratado** ");
+				printf("\n **Docente por Contrato** ");
 				printf("\n Nombres: %s", name);
 				printf("\n Apellidos: %s", lname);
 				printf("\n Cédula: %s", id);
@@ -136,16 +139,24 @@ int main(void){
 				printf("\n Correo: %s", email);
 				printf("\n Teléfono: %s", phone);
 				printf("\n");
-				printf("\n Horas trabajadas:************* %d", horas);
-				if(add>PPHDC){
-				printf("\n Tarifa Por Horas Extras:******$%.2f", add);
-				}else{
-				printf("\n Tarifa Por Horas:**************$%.2f", add);
-				}
-				printf("\n Sub Total: *******************$%.2f", sub_total);
-				printf("\n Descuento Seguro (11.45%):*** -$%.2f", dscto);
+					printf("\n Horas Trabajadas:************* %d ", horas);
+				printf("horas");
+					if(horas>160){
+					printf("\n Horas Extras:***************** %d ", horas_extra);
+					printf("horas");
+					printf("\n Pago Por Horas Extras:******** $%.2f", pago_extra);
+					printf("\n Pago Por Horas Corrientes:**** $%.2f", pago_corriente);
+					}else if(horas<=160){
+						if(horas<160){
+							printf("\n Horas Faltadas:*************** %d ", horas_falta);
+							printf("horas");
+						}
+					printf("\n Tarifa Por Horas:************* $%.2f", PPHDC);
+					}
+				printf("\n Sub Total:******************** $%.2f", sub_total);
+				printf("\n Descuento Seguro (10.15%%):****-$%.2f", dscto);
 				printf("\n");
-				printf("\n Total a Pagar:*************** $%.2f", total);
+				printf("\n Total a Pagar:**************** $%.2f", total);
 				printf("\n \n");
 				system("pause");
 				system("cls");
@@ -153,7 +164,7 @@ int main(void){
 			//Tercer Menu: Docente de Nombramiento	
 			case 3:
 				printf("\n **Cálculo de valor a pagar** ");
-				add=0; pago_adicional=0; adicional=0;//Se declaran las variables en 0, de tipo float para descuento
+				add=0; pago_extra=0; horas_extra=0;//Se declaran las variables en 0, de tipo float para descuento
 				do{
 					printf("\n Ingrese horas trabajadas: ");
 					scanf ("%d",&horas);//recoge datos para guardar en la variable horas
@@ -162,26 +173,29 @@ int main(void){
 						printf("\n Ingreso Inválido!");
 					}
 				}while(horas<=0);//condicion para validar que las horas sean solo positivas
-				
-				if(horas>=0){//sentencia para ejecutar procesos de calculo de pago si el numero ingresado es positivo
-					if (horas > 160){//condicional para efectuar el calcula de tarifa de pago extra si las horas superan las 160
-						fflush(stdin);//limpia buffer
-						add = (PPHDN * 0.15) + PPHDN;//Realiza el calculo para tarifa horas extras
-						sub_total = horas * add;//calcula las horas por el pago adicional
-						dscto = (sub_total * 10.15) / 100;//calcula el descuento
-					}else if(horas <= 160){//condicion que se ejecuta si las horas son menores a 160
-						add = PPHDN;
-						sub_total = horas * PPHDN;
-						dscto = (sub_total * 10.15) / 100;		
-					}	
-				total = sub_total - dscto;//efectua el total a pagar	
-				}else if(horas < 0){
-						printf("Ingreso Inválido!...");//Alerta de ingreso no permitido
-				}
+
+				if (horas > 160){//condicional para efectuar el calcula de tarifa de pago extra si las horas superan las 160
+					fflush(stdin);
+					horas_extra = horas - 160;
+					add = (PPHDN * 0.15) + PPHDN;//Realiza el calculo para tarifa horas extras
+					pago_extra = horas_extra * add;
+					pago_corriente = horas * PPHDN;
+					sub_total = pago_corriente + pago_extra;
+					dscto = (sub_total * 10.15) / 100;//calcula las horas por el pago adicional
+					total = sub_total - dscto;//efectua el total a pagar
+				}else if(horas <= 160){//condicion que se ejecuta si las horas son menores a 160
+					if(horas<160){
+						horas_falta = 160 - horas;
+					}
+					sub_total = horas * PPHDN;	
+					dscto = (sub_total * 10.15) / 100;	
+					total = sub_total - dscto;//efectua el total a pagar	
+					}
+					
 				//Muestra los datos ingresados
 				system("pause");
 				system("cls");
-				printf("\n **Docente Nombramiento** ");
+				printf("\n **Docente por Nombramiento** ");
 				printf("\n Nombres: %s", name);
 				printf("\n Apellidos: %s", lname);
 				printf("\n Cédula: %s", id);
@@ -189,17 +203,24 @@ int main(void){
 				printf("\n Correo: %s", email);
 				printf("\n Teléfono: %s", phone);
 				printf("\n");
-				printf("\n Horas trabajadas:************** %d", horas);
-				if(add>PPHDN){
-				printf("\n Tarifa Por Horas Extras:******$%.2f", add);
-				}else{
-				printf("\n Tarifa Por Horas:**************$%.2f", add);
-				}
-				printf("\n Tarifa Por Horas:**************$%.2f", add);
+				printf("\n Horas Trabajadas:************* %d ", horas);
+				printf("horas");
+					if(horas>160){
+					printf("\n Horas Extras:***************** %d ", horas_extra);
+					printf("horas");
+					printf("\n Pago Por Horas Extras:******** $%.2f", pago_extra);
+					printf("\n Pago Por Horas Corrientes:**** $%.2f", pago_corriente);
+					}else if(horas<=160){
+						if(horas<160){
+							printf("\n Horas Faltadas:*************** %d ", horas_falta);
+							printf("horas");
+						}
+					printf("\n Tarifa Por Horas:************* $%.2f", PPHDN);
+					}
 				printf("\n Sub Total:******************** $%.2f", sub_total);
-				printf("\n Descuento Seguro (10.15%):**** -$%.2f", dscto);
+				printf("\n Descuento Seguro (10.15%%):****-$%.2f", dscto);
 				printf("\n");
-				printf("\n Total a Pagar:*****************$%.2f", total);
+				printf("\n Total a Pagar:**************** $%.2f", total);
 				printf("\n \n");
 				system("pause");
 				system("cls");
@@ -222,7 +243,7 @@ int main(void){
 						printf("\n **PROGRAMA FINALIZADO**");//Mensaje de Programa Finalizado
 					}else if(exit==2){//Condicion para retornar a menu principal
 					fflush(stdin);//limpieza de buffer
-					add=0; pago_adicional=0; adicional=0;//Declara las variables tipo float en 0
+					add=0; pago_extra=0; horas_extra=0;//Se declaran las variables en 0, de tipo float para descuento
 					system("cls");//funcion para limpiar pantalla
 					goto mod;//llama la etiqueta mod
 					}
@@ -233,5 +254,6 @@ int main(void){
 			//default
 			default: goto mod;//llama a etique mod(menu principal) si se ingresa un numero que incorrecto.
 			}
+			
 		getch();//funcion para pausar el programa antes de finalizar
 }
