@@ -243,7 +243,6 @@ int main(void){
 						printf("\n **PROGRAMA FINALIZADO**");//Mensaje de Programa Finalizado
 					}else if(exit==2){//Condicion para retornar a menu principal
 					fflush(stdin);//limpieza de buffer
-					add=0; pago_extra=0; horas_extra=0;//Se declaran las variables en 0, de tipo float para descuento
 					system("cls");//funcion para limpiar pantalla
 					goto mod;//llama la etiqueta mod
 					}
